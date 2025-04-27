@@ -46,7 +46,7 @@ Este repositório contém uma implementação em C de um jogo de **Super Trunfo*
 
 1. **Clone** este repositório:
    ```bash
-   git clone https://github.com/seu-usuario/super-trunfo-paises.git
+   git clone https://github.com/franciscoeymardneto/Desafio-Cartas-Super-Trunfo.git
    cd super-trunfo-paises/src
    ```
 
