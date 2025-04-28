@@ -15,67 +15,42 @@ typedef struct
     float pib_per_capita;          // PIB per capita
 } Carta;
 
+
 // Função que preenche e retorna uma carta
 Carta preencherCarta(int num)
 {
     Carta c;
-    char buffer[100];
 
     printf("Digite os dados da Carta %d:\n", num);
 
-    // Estado
     printf("Estado (A-H): ");
-    if (fgets(buffer, sizeof(buffer), stdin))
-    {
-        c.estado = buffer[0];
-    }
+    scanf(" %c", &c.estado); 
 
-    // Código
     printf("Código da Carta (ex: %c01): ", c.estado);
-    if (fgets(c.codigo, sizeof(c.codigo), stdin))
-    {
-        c.codigo[strcspn(c.codigo, "\n")] = '\0';
-    }
+    scanf(" %3[^\n]", c.codigo);
 
-    // Nome da Cidade
     printf("Nome da Cidade: ");
-    if (fgets(c.cidade, sizeof(c.cidade), stdin))
-    {
-        c.cidade[strcspn(c.cidade, "\n")] = '\0';
-    }
+    scanf(" %199[^\n]", c.cidade);
 
-    // População
     printf("População: ");
-    if (fgets(buffer, sizeof(buffer), stdin))
-    {
-        sscanf(buffer, "%d", &c.populacao);
-    }
+    scanf("%d", &c.populacao);
 
-    // Área
     printf("Área (km²): ");
-    if (fgets(buffer, sizeof(buffer), stdin))
-    {
-        sscanf(buffer, "%f", &c.area);
-    }
+    scanf("%f", &c.area);
 
-    // PIB
     printf("PIB (bilhões de reais): ");
-    if (fgets(buffer, sizeof(buffer), stdin))
-    {
-        sscanf(buffer, "%f", &c.pib);
-    }
+    scanf("%f", &c.pib);
 
-    // Pontos Turísticos
     printf("Número de Pontos Turísticos: ");
-    if (fgets(buffer, sizeof(buffer), stdin))
-    {
-        sscanf(buffer, "%d", &c.pontos_turismo);
-    }
+    scanf("%d", &c.pontos_turismo);
 
-    c.desnsidade_populacional = (float)c.populacao / c.area; // Cálculo da densidade populacional
-    c.pib_per_capita = c.pib / c.populacao;                  // Cálculo do PIB per capita
+    c.desnsidade_populacional = (float)c.populacao / c.area;
 
-    printf("\n"); // Linha em branco após cada carta
+    float pib_em_bilhao = c.pib * 1e9;
+    c.pib_per_capita = pib_em_bilhao / (float)c.populacao;
+
+    printf("\n"); // Linha em branco para separar cartas
+
     return c;
 }
 
@@ -93,7 +68,7 @@ void exibirCartas(Carta cartas[], int tamanho)
         printf("Área: %.2f km²\n", cartas[i].area);
         printf("PIB: %.2f bilhões de reais\n", cartas[i].pib);
         printf("Número de Pontos Turísticos: %d\n", cartas[i].pontos_turismo);
-        printf("Densidade Populacional: %.2f habitantes/km²\n", cartas[i].desnsidade_populacional);
+        printf("Densidade Populacional: %.2f hab/km²\n", cartas[i].desnsidade_populacional);
         printf("PIB per Capita: %.2f reais\n", cartas[i].pib_per_capita);
         printf("\n");
     }
@@ -101,6 +76,7 @@ void exibirCartas(Carta cartas[], int tamanho)
 
 int main()
 {
+
     Carta cartas[2];
 
     // Preencher as duas cartas
